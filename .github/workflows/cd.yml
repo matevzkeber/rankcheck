@@ -13,17 +13,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Clean deployed directory (except .env)
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USER }}
-          key: ${{ secrets.PRIVATE_KEY }}
-          port: ${{ secrets.PORT }}
-          script: |
-            find /home/${{ secrets.USER }}/deployed -type f ! -name '.env' -exec rm -f {} \;
-            find /home/${{ secrets.USER }}/deployed -type d ! -name '.env' -exec rm -rf {} \;
-
       - name: Copy project to server
         uses: appleboy/scp-action@master
         with:
